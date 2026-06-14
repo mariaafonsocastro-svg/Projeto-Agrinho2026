@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegeneraTerra • Agricultura Regenerativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://static.mundoeducacao.uol.com.br/mundoeducacao/2023/04/homem-caminhando-em-uma-plantacao-os-sistemas-agricolas-sao-modelos-de-producao-agropecuaria.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-12px) scale(1.04); box-shadow: 0 30px 60px -15px rgb(16 185 129 / 0.3); }
+        
+        .falling-item {
+            position: fixed;
+            font-size: 2.8rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall linear forwards;
+            user-select: none;
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(720deg); }
+        }
+        
+        .soil-image { transition: transform 0.6s ease; }
+        .soil-image:hover { transform: scale(1.08) rotate(3deg); }
+        
+        .quiz-option {
+            transition: all 0.2s;
+        }
+        .quiz-option:hover {
+            background-color: #10b981;
+            color: white;
+            transform: translateX(10px);
+        }
+    </style>
+</head>
+<body class="bg-emerald-50 text-emerald-900 overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="bg-emerald-800 text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-seedling text-4xl"></i>
+                <h1 class="text-3xl font-bold">RegeneraTerra</h1>
+            </div>
+            <nav class="hidden md:flex gap-8 font-medium">
+                <a href="#oque" class="hover:text-emerald-300 transition">O que é</a>
+                <a href="#beneficios" class="hover:text-emerald-300 transition">Benefícios</a>
+                <a href="#dicas" class="hover:text-emerald-300 transition">Dicas</a>
+                <a href="#saude" class="hover:text-emerald-300 transition">Saúde</a>
+                <a href="#quiz" class="hover:text-emerald-300 transition font-bold">Quiz</a>
+            </nav>
+            <button onclick="doarPIX()" class="bg-emerald-500 hover:bg-emerald-600 px-8 py-3 rounded-3xl font-semibold flex items-center gap-3 transition-all active:scale-95">
+                <i class="fa-solid fa-hand-holding-dollar"></i> Doar via PIX
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-bg h-screen flex items-center text-white relative">
+        <div class="max-w-5xl mx-auto px-6 text-center z-10">
+            <h2 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">A agricultura regenerativa é como cuidar da pele da Terra</h2>
+            <p class="text-2xl mb-12 max-w-2xl mx-auto">Assim como hidratamos e nutrimos nossa pele para que ela se regenere, a agricultura regenerativa devolve vida ao solo.</p>
+            <button onclick="apoiarRegenerativa()" class="border-4 border-white text-white px-12 py-6 rounded-3xl font-bold text-2xl hover:bg-white hover:text-emerald-900 transition">
+                Vou apoiar a agricultura regenerativa!
+            </button>
+        </div>
+    </section>
+
+    <!-- O QUE É -->
+    <section id="oque" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-5xl font-bold mb-8">O que é Agricultura Regenerativa?</h2>
+                    <p class="text-xl text-emerald-800">Imagine que o solo é como sua pele: se você só tirar e nunca cuidar, ela resseca e perde vitalidade. A agricultura regenerativa faz o oposto — cuida do solo como um ser vivo, devolvendo nutrientes, vida e saúde.</p>
+                </div>
+                <img src="https://blog.mfrural.com.br/wp-content/uploads/2022/08/sustentabilidade.jpg" 
+                     alt="Agricultura Regenerativa" 
+                     class="soil-image rounded-3xl shadow-2xl w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFÍCIOS -->
+    <section id="beneficios" class="py-24 bg-emerald-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16">Principais Benefícios e Impacto</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <button onclick="dropEmojis('🌍💰', this)" class="bg-white p-10 rounded-3xl card-hover text-left">
+                    <div class="text-6xl mb-6">🌍</div>
+                    <h3 class="text-2xl font-semibold mb-3">Sequestro de Carbono</h3>
+                    <p class="text-emerald-700">Captura CO₂ da atmosfera e armazena no solo.</p>
+                </button>
+                <button onclick="dropEmojis('💧🌱', this)" class="bg-white p-10 rounded-3xl card-hover text-left">
+                    <div class="text-6xl mb-6">💧</div>
+                    <h3 class="text-2xl font-semibold mb-3">Retenção de Água</h3>
+                    <p class="text-emerald-700">Solo saudável absorve e guarda mais água.</p>
+                </button>
+                <button onclick="dropEmojis('🐛🦋🌾', this)" class="bg-white p-10 rounded-3xl card-hover text-left">
+                    <div class="text-6xl mb-6">🐛</div>
+                    <h3 class="text-2xl font-semibold mb-3">Biodiversidade</h3>
+                    <p class="text-emerald-700">Aumenta vida no solo e ao redor.</p>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTATÍSTICAS -->
+    <section class="py-20 bg-emerald-800 text-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-10">Hectares Regenerados</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div onclick="atualizarEstatistica()" class="cursor-pointer bg-emerald-700/50 p-12 rounded-3xl hover:bg-emerald-700 transition">
+                    <div class="text-7xl font-bold mb-4">35M+</div>
+                    <p class="text-2xl">hectares no Brasil</p>
+                </div>
+                <div onclick="atualizarEstatistica()" class="cursor-pointer bg-emerald-700/50 p-12 rounded-3xl hover:bg-emerald-700 transition">
+                    <div class="text-7xl font-bold mb-4">+5M</div>
+                    <p class="text-2xl">hectares no mundo em transição</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DICAS -->
+    <section id="dicas" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16">Como Aplicar na Prática</h2>
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-3xl font-semibold mb-8">🌾 Grandes Plantações</h3>
+                    <ul class="space-y-4 text-lg">
+                        <li>• Plantio Direto</li>
+                        <li>• Cobertura vegetal permanente</li>
+                        <li>• Integração Lavoura-Pecuária-Floresta</li>
+                        <li>• Rotação de culturas</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-semibold mb-8">🏡 Horta em Casa</h3>
+                    <ul class="space-y-4 text-lg">
+                        <li>• Compostagem caseira</li>
+                        <li>• Plantio consorciado</li>
+                        <li>• Uso de mulch (palha)</li>
+                        <li>• Evitar revolver o solo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAÚDE -->
+    <section id="saude" class="py-24 bg-emerald-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16">Benefícios para a Saúde</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div onclick="dropEmojis('🥕🍎', this)" class="bg-white p-8 rounded-3xl card-hover cursor-pointer">
+                    <h4 class="text-2xl font-semibold mb-4">Alimentos mais nutritivos</h4>
+                    <p>Mais vitaminas e minerais.</p>
+                </div>
+                <div onclick="dropEmojis('🦠❤️', this)" class="bg-white p-8 rounded-3xl card-hover cursor-pointer">
+                    <h4 class="text-2xl font-semibold mb-4">Microbioma saudável</h4>
+                    <p>Mais bactérias benéficas.</p>
+                </div>
+                <div onclick="dropEmojis('💪🌿', this)" class="bg-white p-8 rounded-3xl card-hover cursor-pointer">
+                    <h4 class="text-2xl font-semibold mb-4">Bem-estar geral</h4>
+                    <p>Menos resíduos químicos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4">🧠 Teste seus Conhecimentos</h2>
+            <p class="text-center text-xl mb-12 text-emerald-700">10 perguntas sobre Agricultura Regenerativa</p>
+            
+            <div id="quiz-container" class="bg-emerald-50 p-10 rounded-3xl shadow-inner">
+                <!-- Quiz preenchido pelo JavaScript -->
+            </div>
+            
+            <div id="result" class="hidden text-center mt-10">
+                <h3 class="text-4xl font-bold mb-4">Seu resultado</h3>
+                <div id="score" class="text-7xl font-bold text-emerald-600 mb-6"></div>
+                <button onclick="restartQuiz()" class="bg-emerald-700 text-white px-10 py-4 rounded-2xl text-xl hover:bg-emerald-800 transition">
+                    Refazer o Quiz
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUTROS TIPOS -->
+    <section class="py-20 bg-emerald-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Outros Modelos Sustentáveis</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="https://www.embrapa.br/agricultura-organica" target="_blank" class="block bg-white p-8 rounded-3xl text-center hover:shadow-xl transition">Agricultura Orgânica</a>
+                <a href="https://www.permacultura.org.br/" target="_blank" class="block bg-white p-8 rounded-3xl text-center hover:shadow-xl transition">Permacultura</a>
+                <a href="https://www.rainforest-alliance.org/" target="_blank" class="block bg-white p-8 rounded-3xl text-center hover:shadow-xl transition">Agrofloresta</a>
+                <a href="https://plantiodireto.com.br/" target="_blank" class="block bg-white p-8 rounded-3xl text-center hover:shadow-xl transition">Plantio Direto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="py-28 bg-gradient-to-br from-emerald-700 to-teal-700 text-white text-center">
+        <button onclick="apoiarRegenerativa()" class="text-4xl font-bold bg-white text-emerald-900 px-16 py-8 rounded-3xl hover:scale-110 active:scale-95 transition-all shadow-2xl inline-flex items-center gap-4">
+            Vou apoiar a agricultura regenerativa! <span class="text-5xl">🌱</span>
+        </button>
+    </section>
+
+    <footer class="bg-emerald-950 text-emerald-400 py-12 text-center">
+        <p>Juntos podemos regenerar o solo do Brasil e do mundo 🌍</p>
+    </footer>
+
+    <!-- Container de animações -->
+    <div id="falling-container" class="fixed inset-0 pointer-events-none z-[9999]"></div>
+
+    <script>
+        // === ANIMAÇÕES DE QUEDA ===
+        function createFallingItem(emoji, x) {
+            const container = document.getElementById('falling-container');
+            const item = document.createElement('div');
+            item.className = 'falling-item';
+            item.textContent = emoji;
+            item.style.left = x + 'px';
+            item.style.top = '-80px';
+            const duration = Math.random() * 2.5 + 3.8;
+            item.style.animationDuration = duration + 's';
+            container.appendChild(item);
+            setTimeout(() => item.remove(), duration * 1000 + 600);
+        }
+
+        function dropEmojis(emojis, element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            emojis.split('').forEach((emoji, i) => {
+                setTimeout(() => {
+                    createFallingItem(emoji, centerX + (Math.random() * 180 - 90));
+                }, i * 70);
+            });
+        }
+
+        function doarPIX() {
+            const notes = ['💵','💰','🪙','💶','💴'];
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    createFallingItem(notes[Math.floor(Math.random()*notes.length)], Math.random() * window.innerWidth);
+                }, i * 25);
+            }
+            alert("💚 Obrigado pela doação!\n\nPIX exemplo: regeneraterra@doacao.org");
+        }
+
+        function apoiarRegenerativa() {
+            const confetes = ['🌱','🌿','🍃','🌻','🪴','🌍','🌾'];
+            for (let i = 0; i < 130; i++) {
+                setTimeout(() => {
+                    createFallingItem(confetes[Math.floor(Math.random()*confetes.length)], Math.random() * window.innerWidth);
+                }, i * 7);
+            }
+        }
+
+        function atualizarEstatistica() {
+            alert("📊 Brasil: +35 milhões de hectares\nMundo: Milhões em transição regenerativa\n(Fonte: pesquisas recentes)");
+        }
+
+        // === QUIZ ===
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questions = [
+            { q: "A agricultura regenerativa se compara a cuidar da pele porque:", a: ["Explora o solo até acabar", "Regenera e nutre o solo como um ser vivo", "Só usa produtos químicos"], correct: 1 },
+            { q: "Qual é um dos principais benefícios da agricultura regenerativa?", a: ["Aumentar o uso de agrotóxicos", "Sequestro de carbono do ar", "Diminuir a biodiversidade"], correct: 1 },
+            { q: "O que significa 'plantio direto'?", a: ["Arar a terra profundamente", "Não revolver o solo e plantar sobre a palha", "Usar mais máquinas"], correct: 1 },
+            { q: "Na horta de casa, uma boa prática regenerativa é:", a: ["Revolver o solo toda semana", "Fazer compostagem com restos orgânicos", "Usar muito adubo químico"], correct: 1 },
+            { q: "Alimentos de solos regenerados são:", a: ["Menos nutritivos", "Mais ricos em vitaminas e minerais", "Iguais aos convencionais"], correct: 1 },
+            { q: "Qual prática ajuda na retenção de água no solo?", a: ["Cobertura vegetal permanente", "Queimar a palha", "Arar profundamente"], correct: 0 },
+            { q: "O que é ILPF?", a: ["Integração Lavoura-Pecuária-Floresta", "Insumos químicos em larga escala", "Irrigação por pivô central"], correct: 0 },
+            { q: "A agricultura regenerativa ajuda no combate às mudanças climáticas porque:", a: ["Libera mais carbono", "Captura e armazena carbono no solo", "Não afeta o clima"], correct: 1 },
+            { q: "Qual animal é muito importante na saúde do solo regenerativo?", a: ["A minhoca", "A mosca", "O gafanhoto"], correct: 0 },
+            { q: "Qual é a principal filosofia da agricultura regenerativa?", a: ["Explorar o máximo possível", "Regenerar o solo para as próximas gerações", "Produzir o mais barato possível"], correct: 1 }
+        ];
+
+        function loadQuestion() {
+            const container = document.getElementById('quiz-container');
+            const q = questions[currentQuestion];
+            let html = `
+                <div class="mb-8">
+                    <span class="text-emerald-600 font-medium">Pergunta ${currentQuestion + 1} de 10</span>
+                    <h3 class="text-2xl font-semibold mt-3">${q.q}</h3>
+                </div>
+            `;
+            q.a.forEach((answer, i) => {
+                html += `
+                    <button onclick="answerQuestion(${i})" 
+                            class="quiz-option block w-full text-left px-8 py-5 mb-4 bg-white rounded-2xl text-lg border border-emerald-200 hover:border-emerald-400">
+                        ${answer}
+                    </button>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function answerQuestion(selected) {
+            if (selected === questions[currentQuestion].correct) score++;
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('quiz-container').classList.add('hidden');
+            const result = document.getElementById('result');
+            result.classList.remove('hidden');
+            document.getElementById('score').innerHTML = `${percentage}%<br><span class="text-2xl">acertos</span>`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('result').classList.add('hidden');
+            loadQuestion();
+        }
+
+        // Iniciar Quiz
+        window.onload = () => loadQuestion();
+    </script>
+</body>
+</html>
